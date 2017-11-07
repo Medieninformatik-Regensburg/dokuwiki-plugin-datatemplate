@@ -206,7 +206,9 @@ class syntax_plugin_datatemplate_list extends syntax_plugin_data_table {
         $rawFile = io_readfile($file);
 
         // embed the included page
-        $R->doc .= "<div class=\"${data['classes']}\">";
+        if(strcmp($data['classes'],'nodiv') !== 0){
+            $R->doc .= "<div class=\"${data['classes']}\">";
+        }
 
         // We only want to call the parser once, so first do all the raw replacements and concatenate
         // the strings.
@@ -257,8 +259,10 @@ class syntax_plugin_datatemplate_list extends syntax_plugin_data_table {
         $text = preg_replace('/@@.*?@@/', '', $text);
 
         $R->doc .= $text;
-        $R->doc .= '</div>';
 
+        if(strcmp($data['classes'],'nodiv') !== 0){
+            $R->doc .= '</div>';
+        }
         return true;
     }
 
