@@ -1,6 +1,6 @@
 base    datatemplate
-author  Cyrille Giquello, Christoph Clausen
-date    2016-08-03
-name    Data Template Plugin
-desc    Extension to the data plugin allowing for the use of templates.
-url     https://github.com/Cyrille37/dokuwiki-plugin-datatemplate
+author  Cyrille Giquello, Christoph Clausen, Raphael Wimmer
+date    2017-11-07
+name    Data Template Plugin (nodiv version)
+desc    Extension to the data plugin allowing for the use of templates (including custom nodiv extension for hci.ur.de).
+url     https://github.com/Medieninformatik-Regensburg/dokuwiki-plugin-datatemplate
