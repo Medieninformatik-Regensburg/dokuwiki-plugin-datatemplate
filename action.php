@@ -23,12 +23,12 @@ class action_plugin_datatemplate extends DokuWiki_Action_Plugin {
      */
     function getInfo(){
         return array(
-            'author' => 'Cyrille Giquello, Christoph Clausen',
+            'author' => 'Cyrille Giquello, Christoph Clausen, Raphael Wimmer',
             'email'  => '',
-            'date'   => '2016-08-02',
-            'name'   => 'Datatemplate Plugin',
+            'date'   => '2017-11-07',
+            'name'   => 'Datatemplate Plugin (nodiv fork)',
             'desc'   => 'A template extension for the data plugin',
-            'url'    => 'https://github.com/Cyrille37/dokuwiki-plugin-datatemplate',
+            'url'    => 'https://github.com/Medieninformatik-Regensburg/dokuwiki-plugin-datatemplate/archive/master.zip',
             );
     }
 
