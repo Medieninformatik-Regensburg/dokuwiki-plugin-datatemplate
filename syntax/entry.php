@@ -271,6 +271,10 @@ class syntax_plugin_datatemplate_entry extends syntax_plugin_data_entry {
                         if(!$sz) $sz = 40;
                         $title = $column['key'].': '.basename(str_replace(':','/',$val));
                         $outs[] = '{{' . $val. ($sz ? '?'.$sz:'') .'|'.$title. '}}';
+                    }else if (strlen($type) > 0){
+                        # by default treat fields with a type as containing HTML in order to be compatible with the data plugin's custom datatypes 
+                        # (which return HTML code). May open up security issues if users can enter HTML code into such fields.
+                        $outs[] = '<html>' . $val . '</html>; 
                     }else{
                         $outs[] = $val;
                     }
