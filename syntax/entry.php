@@ -274,7 +274,7 @@ class syntax_plugin_datatemplate_entry extends syntax_plugin_data_entry {
                     }else if (strlen($type) > 0){
                         # by default treat fields with a type as containing HTML in order to be compatible with the data plugin's custom datatypes 
                         # (which return HTML code). May open up security issues if users can enter HTML code into such fields.
-                        $outs[] = '<html>' . $val . '</html>; 
+                        $outs[] = '<html>' . $val . '</html>'; 
                     }else{
                         $outs[] = $val;
                     }
