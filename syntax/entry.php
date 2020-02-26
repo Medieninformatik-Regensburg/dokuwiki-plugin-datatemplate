@@ -178,7 +178,7 @@ class syntax_plugin_datatemplate_entry extends syntax_plugin_data_entry {
         $replacers['vals'] = array();
 
         foreach($data['data'] as $key => $val){
-            if($val == '' || !count($val)) continue;
+            if($val == '' || ($val instanceof Countable && !count($val))) continue;
 
             $replacers['keys'][]     = "@@" . $key . "@@";
             $replacers['raw_keys'][] = "@@!" . $key . "@@";
