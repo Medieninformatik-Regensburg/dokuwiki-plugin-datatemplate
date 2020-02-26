@@ -266,8 +266,10 @@ class syntax_plugin_datatemplate_entry extends syntax_plugin_data_entry {
                     $outs[] = $val;
                     break;
 		 case 'timestamp':
-		 case 'date':
                     $outs[] = dformat($val);
+                    break;
+		 case 'date':
+                    $outs[] = $val;
                     break;
                 default:
                     $val = $this->dthlp->_addPrePostFixes($column['type'], $val);
