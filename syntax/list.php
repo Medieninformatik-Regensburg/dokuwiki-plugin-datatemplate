@@ -241,7 +241,7 @@ class syntax_plugin_datatemplate_list extends syntax_plugin_data_table {
         $text = p_render('xhtml', $instr, $info);
         // remove toc, section edit buttons and category tags
         $patterns = array('!<div class="toc">.*?(</div>\n</div>)!s',
-                          '#<!-- SECTION \[(\d*-\d*)\] -->#e',
+                          '#<!-- SECTION \[(\d*-\d*)\] -->#',
                           '!<div class="category">.*?</div>!s');
         $replace  = array('','','');
         $text = preg_replace($patterns,$replace,$text);
