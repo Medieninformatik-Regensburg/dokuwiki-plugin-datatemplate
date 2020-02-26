@@ -13,6 +13,7 @@ if(file_exists($dataEntryFile)){
     msg('datatemplate: Cannot find Data plugin.', -1);
     return;
 }
+require_once(DOKU_INC . 'inc/common.php'); // for dformat()
 
 class syntax_plugin_datatemplate_entry extends syntax_plugin_data_entry {
 
@@ -264,6 +265,10 @@ class syntax_plugin_datatemplate_entry extends syntax_plugin_data_entry {
                     $val = $this->dthlp->_addPrePostFixes($column['type'], $val);
                     $outs[] = $val;
                     break;
+		 case 'timestamp':
+		 case 'date':
+                    $outs[] = dformat($val);
+                    break;
                 default:
                     $val = $this->dthlp->_addPrePostFixes($column['type'], $val);
                     if(substr($type,0,3) == 'img'){
@@ -278,7 +283,7 @@ class syntax_plugin_datatemplate_entry extends syntax_plugin_data_entry {
                     }else{
                         $outs[] = $val;
                     }
-            }    //todo add type 'timestamp' ... returns html..
+            }
         }
         return join(', ',$outs);
     }
