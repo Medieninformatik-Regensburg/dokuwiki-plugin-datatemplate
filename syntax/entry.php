@@ -111,10 +111,10 @@ class syntax_plugin_datatemplate_entry extends syntax_plugin_data_entry {
      * Generate wiki output from instructions
      *
      * @param $data array as returned by handle()
-     * @param &$R Doku_Renderer_xhtml
+     * @param $R Doku_Renderer_xhtml
      * @return bool|void
      */
-    function _showData($data, &$R) {
+    function _showData($data, $R) {
 
         if(!array_key_exists('template', $data)) {
             // If keyword "template" not present, we can leave
