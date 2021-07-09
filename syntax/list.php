@@ -352,20 +352,30 @@ class syntax_plugin_datatemplate_list extends syntax_plugin_data_table {
                 $colmatch = False;
                 foreach($cols as $col) {
                     $multi = $data['cols'][$col]['multi'];
-                    if($multi) $col .= 's';
+                    if($multi) {
+                            $col .= 's';
+                    }
+                    // convert multiline field (containing tags) into array of individual values
+                    // might cause problems with actual multiline values
+                    $values = array_map('trim', explode("\n", $datarow[$idx]));
+                    //$values = array(trim($datarow[$idx]));
                     $idx = $keys[$col];
-                    switch($f['compare']) {
-                        case 'LIKE':
-                            $comp = $this->_match_wildcard($f['value'], $datarow[$idx]);
-                            break;
-                        case 'NOT LIKE':
-                            $comp = !$this->_match_wildcard($f['value'], $datarow[$idx]);
-                            break;
-                        case '=':
-                            $f['compare'] = '==';
-                        default:
-                            $evalstr = $datarow[$idx] . $f['compare'] . $f['value'];
-                            $comp = eval('return ' . $evalstr . ';');
+                    foreach($values as $value) {
+                            switch($f['compare']) {
+                                case 'LIKE':
+                                    $comp = $this->_match_wildcard($f['value'], $value);
+                                    break;
+                                case 'NOT LIKE':
+                                    $comp = !$this->_match_wildcard($f['value'], $value);
+                                    break;
+                                case '=':
+                                    $f['compare'] = '==';
+                                default:
+                                    $evalstr = '"'. $value . '" ' . $f['compare'] . ' "' . $f['value']. '"';
+                                    $comp = eval('return ' . $evalstr . ';'); // FIXME: looks like it is susceptible for command injection!
+                                    //error_log("\n'" . $value . "' -> " . $evalstr . '->' . $comp); //RW
+                            }
+                            if($comp) {break;} // return a match if at least one comparison works out
                     }
                     $colmatch = $colmatch || $comp;
                 }
