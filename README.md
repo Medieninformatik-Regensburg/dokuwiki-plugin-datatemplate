@@ -1,4 +1,4 @@
-# dokuwiki-plugin-datatemplate
+# dokuwiki-plugin-datatemplate (hci.ur.de fork)
 Extension to the data plugin allowing for the use of templates.
 
 For more information, visit the official plugin page at https://www.dokuwiki.org/plugin:datatemplate.
