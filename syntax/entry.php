@@ -120,7 +120,7 @@ class syntax_plugin_datatemplate_entry extends syntax_plugin_data_entry {
         if(!array_key_exists('template', $data)) {
             // If keyword "template" not present, we can leave
             // the rendering to the parent class.
-            parent::_showData($data, $R);
+            parent::showData($data, $R);
             return true;
         }
 
@@ -232,13 +232,13 @@ class syntax_plugin_datatemplate_entry extends syntax_plugin_data_entry {
             if (is_array($type)) $type = $type['type'];
             switch($type){
                 case 'page':
-                    $val = $this->dthlp->_addPrePostFixes($column['type'], $val);
+                    $val = $this->dthlp->addPrePostFixes($column['type'], $val);
                     $outs[] = '[[' . $val. ']]';
                     break;
                 case 'pageid':
                 case 'title':
                     list($id,$title) = explode('|',$val,2);
-                    $id = $this->dthlp->_addPrePostFixes($column['type'], $id);
+                    $id = $this->dthlp->addPrePostFixes($column['type'], $id);
                     $outs[] = '[[' . $id . '|' . $title . ']]';
                     break;
                 case 'nspage':
@@ -248,11 +248,11 @@ class syntax_plugin_datatemplate_entry extends syntax_plugin_data_entry {
                     break;
                 case 'mail':
                     list($id,$title) = explode(' ',$val,2);
-                    $id = $this->dthlp->_addPrePostFixes($column['type'], $id);
+                    $id = $this->dthlp->addPrePostFixes($column['type'], $id);
                     $outs[] = '[[' . $id . '|' . $title . ']]';
                     break;
                 case 'url':
-                    $val = $this->dthlp->_addPrePostFixes($column['type'], $val);
+                    $val = $this->dthlp->addPrePostFixes($column['type'], $val);
                     $outs[] = '[[' . $val . ']]';
                     break;
                 case 'tag':
@@ -262,7 +262,7 @@ class syntax_plugin_datatemplate_entry extends syntax_plugin_data_entry {
                         '" class="wikilink1">'.hsc($val).'</a>';
                     break;
                 case 'wiki':
-                    $val = $this->dthlp->_addPrePostFixes($column['type'], $val);
+                    $val = $this->dthlp->addPrePostFixes($column['type'], $val);
                     $outs[] = $val;
                     break;
 		 case 'timestamp':
@@ -272,7 +272,7 @@ class syntax_plugin_datatemplate_entry extends syntax_plugin_data_entry {
                     $outs[] = $val;
                     break;
                 default:
-                    $val = $this->dthlp->_addPrePostFixes($column['type'], $val);
+                    $val = $this->dthlp->addPrePostFixes($column['type'], $val);
                     if(substr($type,0,3) == 'img'){
                         $sz = (int) substr($type,3);
                         if(!$sz) $sz = 40;
@@ -299,7 +299,7 @@ class syntax_plugin_datatemplate_entry extends syntax_plugin_data_entry {
      */
     function _saveRendereredData($data,$id,&$renderer){
         if(!array_key_exists('template', $data)) {
-            parent::_saveData($data, $id, $renderer->meta['title']);
+            parent::saveData($data, $id, $renderer->meta['title']);
             return;
         }
 
@@ -308,7 +308,7 @@ class syntax_plugin_datatemplate_entry extends syntax_plugin_data_entry {
         // If for some reason there are no instructions, don't do anything
         // (Maybe for cache handling one should hand the template file name to the
         // metadata, even though the file does not exist)
-        if(!is_string($file)) parent::_saveData($data, $id, $renderer->meta['title']);
+        if(!is_string($file)) parent::saveData($data, $id, $renderer->meta['title']);
         $renderer->meta['relation']['haspart'][$file] = array('owner'=>$this->getPluginName());
 
         // Remove document_start and document_end from instructions
@@ -320,7 +320,7 @@ class syntax_plugin_datatemplate_entry extends syntax_plugin_data_entry {
             call_user_func_array(array($renderer, $instr[$i][0]), $instr[$i][1]);
         }
 
-        parent::_saveData($data, $id, $renderer->meta['title']);
+        parent::saveData($data, $id, $renderer->meta['title']);
     }
 }
 /* Local Variables: */

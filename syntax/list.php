@@ -94,7 +94,7 @@ class syntax_plugin_datatemplate_list extends syntax_plugin_data_table {
         unset($_REQUEST['dataofs']);
         unset($_REQUEST['dataflt']);
 
-        $sql = parent::_buildSQL($data);
+        $sql = parent::buildSQL($data);
 
         // Restore removed fields
         $data['limit'] = $limit;
@@ -223,9 +223,9 @@ class syntax_plugin_datatemplate_list extends syntax_plugin_data_table {
             }
             $replacers['vals_id'][$i] = array();
             $replacers['raw_vals'] = array();
-            foreach($row as $num => $cval) {
+            foreach(array_values($row) as $num => $cval) {
                 $replacers['raw_vals'][] = trim($cval);
-                $replacers['vals_id'][$i][] = $this->dthlp->_formatData($data['cols'][$clist[$num]], $cval, $R);
+                $replacers['vals_id'][$i][] = $this->dthlp->formatData($data['cols'][$clist[$num]], $cval, $R);
             }
 
             // First do raw replacements
@@ -280,7 +280,7 @@ class syntax_plugin_datatemplate_list extends syntax_plugin_data_table {
         $text = '';
         // Add pagination controls
         if($data['limit']){
-            $params = $this->dthlp->_a2ua('dataflt',$_REQUEST['dataflt']);
+            $params = $this->dthlp->a2ua('dataflt',$_REQUEST['dataflt']);
             //$params['datasrt'] = $_REQUEST['datasrt'];
             $offset = (int) $_REQUEST['dataofs'];
             if($offset){
@@ -338,7 +338,7 @@ class syntax_plugin_datatemplate_list extends syntax_plugin_data_table {
         foreach($data['headers'] as $k => $v) {
             $keys[$v] = $k;
         }
-        $filters = $this->dthlp->_get_filters();
+        $filters = $this->dthlp->getFilters();
         if(!$datarows) return $out;
         foreach($datarows as $dr) {
             $matched = True;
