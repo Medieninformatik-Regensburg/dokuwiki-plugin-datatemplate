@@ -308,8 +308,11 @@ class syntax_plugin_datatemplate_entry extends syntax_plugin_data_entry {
         // If for some reason there are no instructions, don't do anything
         // (Maybe for cache handling one should hand the template file name to the
         // metadata, even though the file does not exist)
-        if(!is_string($file)) parent::saveData($data, $id, $renderer->meta['title']);
-        $renderer->meta['relation']['haspart'][$file] = array('owner'=>$this->getPluginName());
+        if($instr == 0 || $instr == -1) {
+                if(!is_string($file)) parent::saveData($data, $id, $renderer->meta['title']);
+                $renderer->meta['relation']['haspart'][$file] = array('owner'=>$this->getPluginName());
+                return;
+        }
 
         // Remove document_start and document_end from instructions
         array_shift($instr);
